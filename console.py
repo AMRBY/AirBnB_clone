@@ -10,39 +10,35 @@ from models.state import State
 from models.city import City
 import shlex
 
+
 class HBNBCommand(cmd.Cmd):
     """
     HBNBCommand console class
     """
     prompt = '(hbnb) '
-
     valid_classes = ["BaseModel", "User", "Amenity",
                      "Place", "Review", "State", "City"]
-    
-    def do_quit(self, arg):
 
+    def do_quit(self, arg):
         """Quit command to exit the program\n"""
 
         return True
-
 
     def do_EOF(self, line):
         """Exits console"""
         print("")
         return True
 
-
     def emptyline(self):
 
         """Do nothing on empty line"""
 
         pass
-    
 
     def do_create(self, arg):
         """
         Create a new instance of BaseModel and save it to the JSON file.
-        
+
         """
         commands = shlex.split(arg)
 
@@ -76,7 +72,6 @@ class HBNBCommand(cmd.Cmd):
                 print(objects[key])
             else:
                 print("** no instance found **")
-
 
     def do_destroy(self, arg):
         """
@@ -125,7 +120,6 @@ class HBNBCommand(cmd.Cmd):
                     result.append(str(value))
                     print(result)
 
-
     def do_update(self, arg):
         """
         Update an instance by adding or updating an attribute.
@@ -134,7 +128,9 @@ class HBNBCommand(cmd.Cmd):
         commands = shlex.split(arg)
 
         if len(commands) < 4:
-            print("** Not enough arguments. Usage: update <class_name> <id> <attribute_name> '<attribute_value>' **")
+            print("** Not enough arguments. \
+                    Usage: update <class_name> <id> <attribute_name> \
+                    '<attribute_value>' **")
             return
 
         class_name = commands[0]
