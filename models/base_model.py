@@ -17,7 +17,7 @@ class BaseModel:
             updated_at: date and time of updating
         """
         from models import storage
-        if (kwargs == {}):
+        if not kwargs:
             self.id = str(uuid4())
             self.created_at = datetime.now()
             self.updated_at = datetime.now()
