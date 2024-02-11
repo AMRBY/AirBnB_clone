@@ -27,19 +27,19 @@ class test_basemodel(unittest.TestCase):
         except Exception:
             pass
 
-    def test_default(self):
+    def test_default_object(self):
         """ """
         i = self.value()
         self.assertEqual(type(i), self.value)
 
-    def test_kwargs(self):
+    def test_kwargs_normal(self):
         """ """
         i = self.value()
         copy = i.to_dict()
         new = BaseModel(**copy)
         self.assertFalse(new is i)
 
-    def test_kwargs_int(self):
+    def test_kwargs_int_key(self):
         """ """
         i = self.value()
         copy = i.to_dict()
@@ -47,7 +47,7 @@ class test_basemodel(unittest.TestCase):
         with self.assertRaises(TypeError):
             new = BaseModel(**copy)
 
-    def test_save(self):
+    def test_save_to_file(self):
         """ """
         i = self.value()
         i.save()
@@ -56,7 +56,7 @@ class test_basemodel(unittest.TestCase):
             j = json.load(f)
             self.assertEqual(j[key], i.to_dict())
 
-    def test_str(self):
+    def test_str_representation(self):
         """ """
         i = self.value()
         self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
