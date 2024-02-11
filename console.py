@@ -1,6 +1,8 @@
 #!/usr/bin/python3
 import cmd
 import shlex
+import re
+import ast
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
@@ -116,43 +118,70 @@ class HBNBCommand(cmd.Cmd):
         commands = shlex.split(arg)
 
         if len(commands) == 0:
+            result = []
             for key, value in objects.items():
-                print(str(value))
+                result.append(str(value))
+                print(result)
         elif commands[0] not in self.valid_classes:
             print("** class doesn't exist **")
         else:
+            result = []
             for key, value in objects.items():
                 if key.split('.')[0] == commands[0]:
-                    print(str(value))
+                    result.append(str(value))
+                    print(result)
+
 
     def do_update(self, arg):
         """
         Update an instance by adding or updating an attribute.
         Usage: update <class_name> <id> <attribute_name> "<attribute_value>"
-
         """
         commands = shlex.split(arg)
 
-        if len(commands) == 0:
-            print("** class name missing **")
-        elif commands[0] not in self.valid_classes:
-            print("** class doesn't exist **")
-        elif len(commands) < 2:
-            print("** instance id missing **")
-        else:
-            objects = storage.all()
+        if len(commands) < 4:
+            print("** Not enough arguments. Usage: update <class_name> <id> <attribute_name> '<attribute_value>' **")
+            return
 
-            key = "{}.{}".format(commands[0], commands[1])
-            if key not in objects:
-                print("** no instance found **")
-            elif len(commands) < 3:
-                print("** attribute name missing **")
-            elif len(commands) < 4:
-                print("** value missing **")
-            else:
-                for key, value in objects.items():
-                    if key.split('.')[0] == commands[0]:
-                        print(str(value))
+        class_name = commands[0]
+        if not class_name:
+            print("** class name missing **")
+            return
+
+        if class_name not in self.valid_classes:
+            print("** class doesn't exist **")
+            return
+
+        instance_id = commands[1]
+        if not instance_id:
+            print("** instance id missing **")
+            return
+
+        objects = storage.all()
+        key = "{}.{}".format(class_name, instance_id)
+
+        if key not in objects:
+            print("** no instance found **")
+            return
+
+        instance = objects[key]
+
+        attribute_name = commands[2]
+        if not attribute_name:
+            print("** attribute name missing **")
+            return
+
+        if attribute_name in ["id", "created_at", "updated_at"]:
+            print("** Cannot update id, created_at, or updated_at **")
+            return
+
+        attribute_value = " ".join(commands[3:])
+        if not attribute_value:
+            print("** value missing **")
+            return
+
+        setattr(instance, attribute_name, attribute_value)
+        instance.save()
 
 
 if __name__ == '__main__':
