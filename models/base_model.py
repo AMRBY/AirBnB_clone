@@ -1,57 +1,79 @@
 #!/usr/bin/python3
+"""
+Custom base class for the entire project
+"""
 
-import uuid
+from uuid import uuid4
 from datetime import datetime
-
-"""
-till we finish the class
-"""
+import models
 
 
 class BaseModel:
+    """Custom base for all the classes in the AirBnb console project
 
-    """define the attributes and methods"""
+    Arttributes:
+        id(str): handles unique user identity
+        created_at: assigns current datetime
+        updated_at: updates current datetime
+
+    Methods:
+        __str__: prints the class name, id, and creates dictionary
+        representations of the input values
+        save(self): updates instance arttributes with current datetime
+        to_dict(self): returns the dictionary values of the instance obj
+
+    """
+
     def __init__(self, *args, **kwargs):
-        from models import storage
+        """Public instance artributes initialization
+        after creation
+
+        Args:
+            *args(args): arguments
+            **kwargs(dict): attrubute values
+
         """
-        """
-        if kwargs:
-            if "__class__" in kwargs:
-                del kwargs["__class__"]
-            for key, value in kwargs.items():
-                if key in ["created_at", "updated_at"]:
-                    setattr(self, key, datetime.strptime(
-                        value, "%Y-%m-%dT%H:%M:%S.%f"))
-                else:
-                    setattr(self, key, value)
+        DATE_TIME_FORMAT = '%Y-%m-%dT%H:%M:%S.%f'
+        if not kwargs:
+            self.id = str(uuid4())
+            self.created_at = datetime.utcnow()
+            self.updated_at = datetime.utcnow()
+            models.storage.new(self)
         else:
-            self.id = str(uuid.uuid4())
-            self.created_at = datetime.now()
-            self.updated_at = datetime.now()
-            storage.new(self)
-
-    def save(self):
-        from models import storage
-        """updates the public instance attribute,
-        updated_at with the current datetime
-        """
-        self.updated_at = datetime.now()
-        storage.save()
-
-    def to_dict(self):
-        """Convert the object to a dictionary representation.
-        Returns:
-            dict: A dictionary containing the object's attributes,
-            class name, and ISO-formatted date strings.
-        """
-        obj_dict = self.__dict__.copy()
-        obj_dict['__class__'] = self.__class__.__name__
-        obj_dict['created_at'] = obj_dict['created_at'].isoformat()
-        obj_dict['updated_at'] = obj_dict['updated_at'].isoformat()
-
-        return obj_dict
+            for key, value in kwargs.items():
+                if key in ("updated_at", "created_at"):
+                    self.__dict__[key] = datetime.strptime(
+                        value, DATE_TIME_FORMAT)
+                elif key[0] == "id":
+                    self.__dict__[key] = str(value)
+                else:
+                    self.__dict__[key] = value
 
     def __str__(self):
-        """Custom string representation of the object"""
-        return "[{}] ({}) {}".format(
-            self.__class__.__name__, self.id, self.__dict__)
+        """
+        Returns string representation of the class
+        """
+        return "[{}] ({}) {}".format(self.__class__.__name__,
+                                     self.id, self.__dict__)
+
+    def save(self):
+        """
+        Updates the public instance attribute:
+        'updated_at' - with the current datetime
+        """
+        self.updated_at = datetime.utcnow()
+        models.storage.save()
+
+    def to_dict(self):
+        """
+        Method returns a dictionary containing all
+        keys/values of __dict__ instance
+        """
+        map_objects = {}
+        for key, value in self.__dict__.items():
+            if key == "created_at" or key == "updated_at":
+                map_objects[key] = value.isoformat()
+            else:
+                map_objects[key] = value
+        map_objects["__class__"] = self.__class__.__name__
+        return map_objects
