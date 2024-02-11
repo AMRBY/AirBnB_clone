@@ -15,6 +15,7 @@ class HBNBCommand(cmd.Cmd):
     """
     HBNBCommand console class
     """
+<<<<<<< HEAD
     prompt = '(hbnb) '
     valid_classes = ["BaseModel", "User", "Amenity",
                      "Place", "Review", "State", "City"]
@@ -29,11 +30,34 @@ class HBNBCommand(cmd.Cmd):
         print("")
         return True
 
+=======
+
+    prompt = "(hbnb) "
+
+    valid_classes = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
+
+>>>>>>> 3952f50166b56cc88cff47efc6cfce9008fa2205
     def emptyline(self):
-
-        """Do nothing on empty line"""
-
+        """
+        Do nothing when an empty line is entered.
+        """
         pass
+
+    def do_EOF(self, arg):
+        """
+        EOF (Ctrl+D) signal to exit the program.
+        """
+        return True
+
+<<<<<<< HEAD
+        pass
+=======
+    def do_quit(self, arg):
+        """
+        Quit command to exit the program.
+        """
+        return True
+>>>>>>> 3952f50166b56cc88cff47efc6cfce9008fa2205
 
     def do_create(self, arg):
         """
@@ -116,7 +140,7 @@ class HBNBCommand(cmd.Cmd):
         else:
             result = []
             for key, value in objects.items():
-                if key.split('.')[0] == commands[0]:
+                if key.split(".")[0] == commands[0]:
                     result.append(str(value))
                     print(result)
 
@@ -128,9 +152,15 @@ class HBNBCommand(cmd.Cmd):
         commands = shlex.split(arg)
 
         if len(commands) < 4:
+<<<<<<< HEAD
             print("** Not enough arguments. \
                     Usage: update <class_name> <id> <attribute_name> \
                     '<attribute_value>' **")
+=======
+            print(
+                "** Not enough arguments. Usage: update <class_name> <id> <attribute_name> '<attribute_value>' **"
+            )
+>>>>>>> 3952f50166b56cc88cff47efc6cfce9008fa2205
             return
 
         class_name = commands[0]
@@ -174,5 +204,5 @@ class HBNBCommand(cmd.Cmd):
         instance.save()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     HBNBCommand().cmdloop()
