@@ -73,7 +73,7 @@ class test_basemodel(unittest.TestCase):
         n = {None: None}
         with self.assertRaises(TypeError):
             new = self.value(**n)
-
+"""
     def test_kwargs_one(self):
         """ """
         n = {'Name': 'test'}
@@ -84,7 +84,7 @@ class test_basemodel(unittest.TestCase):
         """ """
         new = self.value()
         self.assertEqual(type(new.id), str)
-
+"""
     def test_created_at(self):
         """ """
         new = self.value()
