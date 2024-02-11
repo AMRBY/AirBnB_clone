@@ -11,27 +11,33 @@ from models.city import City
 import shlex
 
 class HBNBCommand(cmd.Cmd):
-    prompt = "(hbnb) "
+    """
+    HBNBCommand console class
+    """
+    prompt = '(hbnb) '
+
     valid_classes = ["BaseModel", "User", "Amenity",
                      "Place", "Review", "State", "City"]
+    
+    def do_quit(self, arg):
+
+        """Quit command to exit the program\n"""
+
+        return True
+
+
+    def do_EOF(self, line):
+        """Exits console"""
+        print("")
+        return True
+
 
     def emptyline(self):
-        """
-        Do nothing when an empty line is entered.
-        """
+
+        """Do nothing on empty line"""
+
         pass
-
-    def do_EOF(self, arg):
-        """
-        EOF (Ctrl+D) signal to exit the program.
-        """
-        return True
-
-    def do_quit(self, arg):
-        """
-        Quit command to exit the program.
-        """
-        return True
+    
 
     def do_create(self, arg):
         """
