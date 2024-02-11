@@ -1,8 +1,5 @@
 #!/usr/bin/python3
 import cmd
-import shlex
-import re
-import ast
 from models.base_model import BaseModel
 from models import storage
 from models.user import User
@@ -11,54 +8,30 @@ from models.place import Place
 from models.review import Review
 from models.state import State
 from models.city import City
+import shlex
 
 class HBNBCommand(cmd.Cmd):
     prompt = "(hbnb) "
     valid_classes = ["BaseModel", "User", "Amenity",
                      "Place", "Review", "State", "City"]
 
-    def do_quit(self, arg):
-        """
-        Quit command to exit the program
-
-        """
-        return True
-
-    def help_quit(self):
-        """
-        Help message for quit command
-        """
-        print("Quit command to exit the program")
-
-    def do_EOF(self, arg):
-        """
-        EOF command to exit the program
-
-        """
-        return True
-
     def emptyline(self):
         """
-        Do nothing on empty input line
-
+        Do nothing when an empty line is entered.
         """
         pass
 
-    def do_help(self, arg):
+    def do_EOF(self, arg):
         """
-        List available commands with "help" or detailed help with "help cmd".
+        EOF (Ctrl+D) signal to exit the program.
         """
-        if arg:
-            # Display detailed help for a specific command
-            try:
-                super().do_help(arg)
-            except AttributeError:
-                print(f"No help available for {arg}")
-        else:
-            # Display a custom list of available commands
-            print("Documented commands (type help <topic>):")
-            print("=" * 40)
-            print("EOF  help  quit")
+        return True
+
+    def do_quit(self, arg):
+        """
+        Quit command to exit the program.
+        """
+        return True
 
     def do_create(self, arg):
         """
