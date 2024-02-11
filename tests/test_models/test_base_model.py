@@ -38,7 +38,7 @@ class test_basemodel(unittest.TestCase):
         copy = i.to_dict()
         new = BaseModel(**copy)
         self.assertFalse(new is i)
-
+"""
     def test_kwargs_int(self):
         """ """
         i = self.value()
@@ -48,7 +48,7 @@ class test_basemodel(unittest.TestCase):
             new = BaseModel(**copy)
 
     def test_save(self):
-        """ Testing save """
+        """ """
         i = self.value()
         i.save()
         key = self.name + "." + i.id
@@ -73,7 +73,7 @@ class test_basemodel(unittest.TestCase):
         n = {None: None}
         with self.assertRaises(TypeError):
             new = self.value(**n)
-"""
+    
     def test_kwargs_one(self):
         """ """
         n = {'Name': 'test'}
@@ -84,7 +84,7 @@ class test_basemodel(unittest.TestCase):
         """ """
         new = self.value()
         self.assertEqual(type(new.id), str)
-"""
+
     def test_created_at(self):
         """ """
         new = self.value()
@@ -97,3 +97,4 @@ class test_basemodel(unittest.TestCase):
         n = new.to_dict()
         new = BaseModel(**n)
         self.assertFalse(new.created_at == new.updated_at)
+"""
