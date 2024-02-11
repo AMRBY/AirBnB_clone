@@ -16,11 +16,11 @@ class test_basemodel(unittest.TestCase):
         super().__init__(*args, **kwargs)
         self.name = 'BaseModel'
         self.value = BaseModel
-
+"""
     def setUp(self):
         """ """
         pass
-
+"""
     def tearDown(self):
         try:
             os.remove('file.json')
@@ -38,7 +38,7 @@ class test_basemodel(unittest.TestCase):
         copy = i.to_dict()
         new = BaseModel(**copy)
         self.assertFalse(new is i)
-"""
+
     def test_kwargs_int(self):
         """ """
         i = self.value()
@@ -61,7 +61,7 @@ class test_basemodel(unittest.TestCase):
         i = self.value()
         self.assertEqual(str(i), '[{}] ({}) {}'.format(self.name, i.id,
                          i.__dict__))
-
+"""
     def test_todict(self):
         """ """
         i = self.value()
