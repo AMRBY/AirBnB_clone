@@ -27,7 +27,6 @@ class HBNBCommand(cmd.Cmd):
     def help_quit(self):
         """
         Help message for quit command
-
         """
         print("Quit command to exit the program")
 
@@ -44,6 +43,22 @@ class HBNBCommand(cmd.Cmd):
 
         """
         pass
+
+    def do_help(self, arg):
+        """
+        List available commands with "help" or detailed help with "help cmd".
+        """
+        if arg:
+            # Display detailed help for a specific command
+            try:
+                super().do_help(arg)
+            except AttributeError:
+                print(f"No help available for {arg}")
+        else:
+            # Display a custom list of available commands
+            print("Documented commands (type help <topic>):")
+            print("=" * 40)
+            print("EOF  help  quit")
 
     def do_create(self, arg):
         """
