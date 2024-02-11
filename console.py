@@ -20,26 +20,23 @@ class HBNBCommand(cmd.Cmd):
 
     valid_classes = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
 
-    def do_EOF(self, arg):
-        """Quit command to exit the program"""
-        print()
-        exit()
-
-    def help_EOF(self):
-        """ Prints the help documentation for EOF """
-        print("Exits the program without formatting\n")
-
     def emptyline(self):
-        """ overwriting the emptyline method """
+        """
+        Do nothing when an empty line is entered.
+        """
         pass
 
-    def do_quit(self, arg):
-        """ Method to exit the HBNB console"""
-        exit()
+    def do_EOF(self, arg):
+        """
+        EOF (Ctrl+D) signal to exit the program.
+        """
+        return True
 
-    def help_quit(self):
-        """ Prints the help documentation for quit  """
-        print("Quit command to exit the program\n")
+    def do_quit(self, arg):
+        """
+        Quit command to exit the program.
+        """
+        return True
 
     def do_create(self, arg):
         """
