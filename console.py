@@ -20,23 +20,30 @@ class HBNBCommand(cmd.Cmd):
 
     valid_classes = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
 
-    def emptyline(self):
+    
+    def do_quit(self, arg):
+        """Quit command to exit the program.
         """
-        Do nothing when an empty line is entered.
-        """
-        pass
+        return True
 
     def do_EOF(self, arg):
-        """
-        EOF (Ctrl+D) signal to exit the program.
+        """Quit command to exit the program.
         """
         return True
 
-    def do_quit(self, arg):
+    def do_help(self, arg): 
         """
-        Quit command to exit the program.
+        Documented commands (type help <topic>):
+        ========================================
+        EOF  help  quit
+
         """
-        return True
+        if arg == 'quit':
+            print("Quit command to exit the program\n")
+        else:
+            print("\nDocumented commands (type help <topic>):")
+            print("=" * 40)
+            print("EOF  help  quit\n")
 
     def do_create(self, arg):
         """
@@ -176,6 +183,13 @@ class HBNBCommand(cmd.Cmd):
         setattr(instance, attribute_name, attribute_value)
         instance.save()
 
+    def emptyline(self):
+        """
+        When an empty line is entered in response to the prompt,
+        it won't repeat the last nonempty command entered.
+
+        """
+        pass
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
