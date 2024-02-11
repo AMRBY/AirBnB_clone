@@ -15,40 +15,23 @@ class HBNBCommand(cmd.Cmd):
     valid_classes = ["BaseModel", "User", "Amenity",
                      "Place", "Review", "State", "City"]
 
-    def do_quit(self, arg):
-        """
-        Quit command to exit the program
-
-        """
-        return True
-
-    def help_quit(self):
-        """
-        Help message for quit command
-        """
-        print("Quit command to exit the program\n")
-
-    def do_EOF(self, arg):
-        """
-        EOF command to exit the program
-
-        """
-        return True
-
     def emptyline(self):
         """
-        Do nothing on empty input line
-
+        Do nothing when an empty line is entered.
         """
         pass
 
-    def help(self, arg):
+    def do_EOF(self, arg):
         """
-        List available commands with "help" or detailed help with "help cmd".
+        EOF (Ctrl+D) signal to exit the program.
         """
-        print("\nDocumented commands (type help <topic>):")
-        print("=" * 40)
-        print("EOF  help  quit\n")
+        return True
+
+    def do_quit(self, arg):
+        """
+        Quit command to exit the program.
+        """
+        return True
 
     def do_create(self, arg):
         """
