@@ -2,7 +2,7 @@
 """
 Command Line Interpreter
 """
-
+from models.engine.file_storage import FileStorage
 import cmd
 from models.base_model import BaseModel
 from models import storage
@@ -77,22 +77,26 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
                     pass
 
-    def do_all(self, args):
-        """display all objects based on class
-        """
-        lista = []
-        objs = storage.all()
-        if (args == ""):
-            for v in objs.values():
-                lista.append(str(v))
-            print(lista[:])
-        elif (args != "BaseModel"):
+    def do_all(self, arg):
+        'Show all instances based on class name.'
+        my_arg = arg.split(" ")
+        if not arg:
+            my_list = []
+            my_objects = FileStorage.all(self)
+            for key, values in my_objects.items():
+                my_list.append(str(values))
+            print(my_list)
+        elif my_arg[0] not in my_class:
             print("** class doesn't exist **")
         else:
-            for k, v in objs.items():
-                if (k.split('.')[0] == "BaseModel"):
-                    lista.append(str(v))
-            print(lista[:])
+            my_list = []
+            my_objects = FileStorage.all(self)
+            for key, values in my_objects.items():
+                my_key = key.split(".")
+                if my_key[0] == my_arg[0]:
+                    my_list.append(str(values))
+            print(my_list)
+
 
     def do_update(self, args):
         """update an object from a class
