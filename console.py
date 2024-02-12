@@ -115,7 +115,6 @@ class HBNBCommand(cmd.Cmd):
             elif(string[-1] == '"'):
             new_string = string[:-1]
         """
-        print(new_string)
         return new_string
 
     def do_update(self, args):
