@@ -32,7 +32,7 @@ A command interpreter to manage our Airbnb clone objects:
 
 1. Clone this repository:
 
-git clone https://github.com/robpalacios1/AirBnB_clone.git
+git clone https://github.com/AMRBY/AirBnB_clone.git
 
 markdown
 
