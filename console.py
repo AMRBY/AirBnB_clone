@@ -18,9 +18,9 @@ class HBNBCommand(cmd.Cmd):
 
     prompt = "(hbnb) "
 
-    valid_classes = ["BaseModel", "User", "Amenity", "Place", "Review", "State", "City"]
+    valid_classes = ["BaseModel", "User", "Amenity",
+                     "Place", "Review", "State", "City"]
 
-    
     def do_quit(self, arg):
         """Quit command to exit the program.
         """
@@ -31,7 +31,7 @@ class HBNBCommand(cmd.Cmd):
         """
         return True
 
-    def do_help(self, arg): 
+    def do_help(self, arg):
         """
         Documented commands (type help <topic>):
         ========================================
@@ -138,9 +138,8 @@ class HBNBCommand(cmd.Cmd):
         commands = shlex.split(arg)
 
         if len(commands) < 4:
-            print(
-                "** Not enough arguments. Usage: update <class_name> <id> <attribute_name> '<attribute_value>' **"
-            )
+            print("** Not enough arguments. Usage: update \
+                    <class_name> <id> <attribute_name> '<attribute_value>' **")
             return
 
         class_name = commands[0]
@@ -190,6 +189,7 @@ class HBNBCommand(cmd.Cmd):
 
         """
         pass
+
 
 if __name__ == "__main__":
     HBNBCommand().cmdloop()
