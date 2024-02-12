@@ -115,7 +115,8 @@ class HBNBCommand(cmd.Cmd):
                         print("** value missing **")
                     else:
                         x_key = args.split()[2]
-                        objs[key_id].__dict__[x_key] = args.split()[3]
+                        #objs[key_id].__dict__[x_key] = args.split()[3]
+                        setattr(objs[key_id], x_key, args.split()[3])
                         storage.save()
 
                 except Exception as e:
