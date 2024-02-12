@@ -9,11 +9,15 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-    """HBNBCommand class to manage the CLI"""
+    """HBNBCommand class to manage the CLI
+    args:
+        prompt: "(hbnb) " display in loop
+    """
     prompt = "(hbnb) "
 
     def emptyline(self):
-        """do nothing when emptyline"""
+        """do nothing when emptyline
+        """
         pass
 
     def do_quit(self, args):
