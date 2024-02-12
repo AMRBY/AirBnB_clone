@@ -1,12 +1,11 @@
 #!/usr/bin/python3
-"""
-Place
-"""
+"""Module for the Place class."""
 from models.base_model import BaseModel
 
 
 class Place(BaseModel):
-    """Represent a place.
+    """
+    Represents a place.
 
     Attributes:
         city_id (str): The City id.
