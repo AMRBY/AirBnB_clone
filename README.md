@@ -34,17 +34,11 @@ A command interpreter to manage our Airbnb clone objects:
 
 git clone https://github.com/AMRBY/AirBnB_clone.git
 
-markdown
-
 
 2. Access AirBnb directory: cd AirBnB_clone
 
 
-3. Run the console interactively:
-
-./console
-
-javascript
+3. Run the console interactively: ./console and enter command
 
 
 4. Run the console non-interactively:
