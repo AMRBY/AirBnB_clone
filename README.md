@@ -41,7 +41,7 @@ git clone https://github.com/AMRBY/AirBnB_clone.git
 3. Run the console interactively: ```./console``` and enter command
 
 
-4. Run the console non-interactively: echo "<command>" or ```./console.py```
+4. Run the console non-interactively: echo ```<command> | ./console.py```
 
 
 ## File Description :file_folder:
@@ -55,7 +55,7 @@ git clone https://github.com/AMRBY/AirBnB_clone.git
 
 ## Example :computer:
 
-(Provide an example here if necessary)
+```(Provide an example here if necessary)```
 
 ## Contributors
 
