@@ -21,32 +21,17 @@ class HBNBCommand(cmd.Cmd):
     valid_classes = ["BaseModel", "User", "Amenity",
                      "Place", "Review", "State", "City"]
 
-<<<<<<< HEAD
-    
-=======
+    def do_EOF(self, arg):
+        """
+        EOF (Ctrl+D) signal to exit the program.
+        """
+        return True
+
     def do_quit(self, arg):
         """Quit command to exit the program.
         """
         return True
 
->>>>>>> 8d8c0c5abdebb2cd886b79fd4f3321e876b2da15
-    def do_EOF(self, arg):
-        """
-<<<<<<< HEAD
-        EOF (Ctrl+D) signal to exit the program.
-=======
-        return True
-
-    def do_help(self, arg):
->>>>>>> 8d8c0c5abdebb2cd886b79fd4f3321e876b2da15
-        """
-        return True
-
-    def do_quit(self, arg):
-        """Quit command to exit the program
-        """
-        return True
-    
     def do_create(self, arg):
         """
         Create a new instance of BaseModel and save it to the JSON file.
