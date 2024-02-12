@@ -4,7 +4,7 @@
 
 The AirBnB clone project starts now until… the end of the first year. The goal of the project is to deploy on your server a simple copy of the AirBnB website.
 
-This project was created at Holberton School.
+This project was created at Alx.
 
 ## Table of Contents :clipboard:
 
@@ -16,7 +16,7 @@ This project was created at Holberton School.
 
 ## Description :triangular_ruler:
 
-The console is the first segment of the AirBnB project at Holberton School, which collectively covers fundamental concepts of higher-level programming. The goal of the AirBnB project is to eventually deploy a simple copy of the AirBnB website (HBnB) on our server. In this segment, a command interpreter is created to manage objects for the AirBnB (HBnB) website.
+The console is the first segment of the AirBnB project at Alx, which collectively covers fundamental concepts of higher-level programming. The goal of the AirBnB project is to eventually deploy a simple copy of the AirBnB website (HBnB) on our server. In this segment, a command interpreter is created to manage objects for the AirBnB (HBnB) website.
 
 This is the first step towards building our first full web application: the AirBnB clone.
 
@@ -65,7 +65,7 @@ less
 - test_base_model_dict.py
 - test_base_model.py
 - README.md
-- test_save_reload_base_model.py
+- console.py
 
 ## Example :computer:
 
@@ -73,5 +73,5 @@ less
 
 ## Contributors
 
-- Your Name (@YourGitHubUsername)
-- Additional contributors (if any)
+- Soulaimane ETTABAA (@putbullet)
+- Additio
