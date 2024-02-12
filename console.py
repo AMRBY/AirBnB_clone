@@ -98,16 +98,23 @@ class HBNBCommand(cmd.Cmd):
                     lista.append(str(v))
             print(lista[:])
 
-    def quoted(self, string):
+    def quoted(self, args):
         """detect and delete quotes
         """
-        new_string = string
+        i = 0
+        string = args.split()[i]
+        new_string = args.split()[i]
         if(string[0] == '"' and string[-1] == '"'):
             new_string = string[1:-1]
         elif(string[0] == '"'):
-            new_string = string[1:]
-        elif(string[-1] == '"'):
+            while(string[-1] != '"'):
+                string = string + " " + args.split()[i + 1]
+                i = i + 1
+            new_string = string[1:-1]
+        """
+            elif(string[-1] == '"'):
             new_string = string[:-1]
+        """
         return new_string
 
     def do_update(self, args):
@@ -131,7 +138,7 @@ class HBNBCommand(cmd.Cmd):
                         print("** value missing **")
                     else:
                         x_key = args.split()[2]
-                        x_value = HBNBCommand.quoted(self, args.split()[3])
+                        x_value = HBNBCommand.quoted(self, args)
                         setattr(objs[key_id], x_key, x_value)
                         storage.save()
 
