@@ -4,8 +4,14 @@ Command Line Interpreter
 """
 
 import cmd
-from models.base_model import BaseModel
 from models import storage
+from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
 
 
 class HBNBCommand(cmd.Cmd):
@@ -14,6 +20,8 @@ class HBNBCommand(cmd.Cmd):
         prompt: "(hbnb) " display in loop
     """
     prompt = "(hbnb) "
+    classes = ["BaseModel", "User", "Amenity",
+                     "Place", "Review", "State", "City"]
 
     def emptyline(self):
         """do nothing when emptyline
@@ -35,10 +43,10 @@ class HBNBCommand(cmd.Cmd):
         """
         if (args == ""):
             print("** class name missing **")
-        elif (args != "BaseModel"):
+        elif (args.split()[0] not in HBNBCommand.classes):
             print("** class doesn't exist **")
         else:
-            obj = BaseModel()
+            obj = eval(args.split()[0]+"()")
             obj.save()
             print(obj.id)
 
@@ -48,13 +56,13 @@ class HBNBCommand(cmd.Cmd):
         if (args == ""):
             print("** class name missing **")
         else:
-            if (args.split()[0] != "BaseModel"):
+            if (args.split()[0] not in HBNBCommand.classes):
                 print("** class doesn't exist **")
             elif (len(args.split()) == 1):
                 print("** instance id missing **")
             else:
                 objs = storage.all()
-                key_id = "BaseModel." + args.split()[1]
+                key_id = args.split()[0] + "." + args.split()[1]
                 try:
                     print(objs[key_id])
                 except Exception:
@@ -67,13 +75,13 @@ class HBNBCommand(cmd.Cmd):
         if (args == ""):
             print("** class name missing **")
         else:
-            if (args.split()[0] != "BaseModel"):
+            if (args.split()[0] not in HBNBCommand.classes):
                 print("** class doesn't exist **")
             elif (len(args.split()) == 1):
                 print("** instance id missing **")
             else:
                 objs = storage.all()
-                key_id = "BaseModel." + args.split()[1]
+                key_id = args.split()[0] + "." + args.split()[1]
                 try:
                     del(objs[key_id])
                     objs.save()
@@ -90,11 +98,11 @@ class HBNBCommand(cmd.Cmd):
             for v in objs.values():
                 lista.append(str(v))
             print(lista[:])
-        elif (args != "BaseModel"):
+        elif (args.split()[0] not in HBNBCommand.classes):
             print("** class doesn't exist **")
         else:
             for k, v in objs.items():
-                if (k.split('.')[0] == "BaseModel"):
+                if (k.split('.')[0] == args.split()[0]):
                     lista.append(str(v))
             print(lista[:])
 
@@ -123,13 +131,13 @@ class HBNBCommand(cmd.Cmd):
         if (args == ""):
             print("** class name missing **")
         else:
-            if (args.split()[0] != "BaseModel"):
+            if (args.split()[0] not in HBNBCommand.classes):
                 print("** class doesn't exist **")
             elif (len(args.split()) == 1):
                 print("** instance id missing **")
             else:
                 objs = storage.all()
-                key_id = "BaseModel." + args.split()[1]
+                key_id = args.split()[0] + "." + args.split()[1]
                 try:
                     objs[key_id]
                     if (len(args.split()) == 2):
