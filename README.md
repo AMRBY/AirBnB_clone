@@ -35,13 +35,13 @@ A command interpreter to manage our Airbnb clone objects:
 git clone https://github.com/AMRBY/AirBnB_clone.git
 
 
-2. Access AirBnb directory: cd AirBnB_clone
+2. Access AirBnb directory: ```cd AirBnB_clone```
 
 
-3. Run the console interactively: ./console and enter command
+3. Run the console interactively: ```./console``` and enter command
 
 
-4. Run the console non-interactively: echo "<command>" or ./console.py
+4. Run the console non-interactively: echo "<command>" or ```./console.py```
 
 
 ## File Description :file_folder:
