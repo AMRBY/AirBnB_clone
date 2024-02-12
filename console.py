@@ -122,6 +122,28 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
                     pass
 
+    def do_count(self, arg):
+        """Counts and retrieves the number of instances of a class
+        """
+        objects = storage.all()
+
+        commands = shlex.split(arg)
+
+        if arg:
+            cls_nom = commands[0]
+
+        count = 0
+
+        if commands:
+            if cls_nom in self.valid_classes:
+                for obj in objects.values():
+                    if obj.__class__.__name__ == cls_nom:
+                        count += 1
+                print(count)
+            else:
+                print("** invalid class name **")
+        else:
+            print("** class name missing **")
 
 if __name__ == '__main__':
     HBNBCommand().cmdloop()
