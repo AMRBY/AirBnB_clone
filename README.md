@@ -1,8 +1,6 @@
-**AirBnB Clone**
-
 # AirBnB Clone - The Console :airbnb::rocket:
 
-The AirBnB clone project starts now until… the end of the first year. The goal of the project is to deploy on your server a simple copy of the AirBnB website.
+Welcome to The AirBnB clone project. The goal of the project is to deploy on your server a simple copy of the AirBnB website.
 
 This project was created at Alx.
 
@@ -48,14 +46,27 @@ git clone https://github.com/AMRBY/AirBnB_clone.git
 
 - AUTHORS
 - models
-- test_base_model_dict.py
 - test_base_model.py
 - README.md
 - console.py
 
 ## Example :computer:
 
-```(Provide an example here if necessary)```
+```guillaume@ubuntu:~/AirBnB$ ./console.py
+(hbnb) help
+
+Documented commands (type help <topic>):
+========================================
+EOF  help  quit
+
+(hbnb) 
+(hbnb) help quit
+Quit command to exit the program
+
+(hbnb) 
+(hbnb) 
+(hbnb) quit 
+guillaume@ubuntu:~/AirBnB$ ```
 
 ## Contributors
 
