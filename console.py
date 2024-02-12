@@ -1,4 +1,7 @@
 #!/usr/bin/python3
+"""
+this is a module to handle a CLI
+"""
 import cmd
 from models.base_model import BaseModel
 from models import storage
