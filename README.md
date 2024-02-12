@@ -37,11 +37,7 @@ git clone https://github.com/AMRBY/AirBnB_clone.git
 markdown
 
 
-2. Access the AirBnb directory:
-
-cd AirBnB_clone
-
-javascript
+2. Access AirBnb directory: cd AirBnB_clone
 
 
 3. Run the console interactively:
