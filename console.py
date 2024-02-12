@@ -21,29 +21,16 @@ class HBNBCommand(cmd.Cmd):
     valid_classes = ["BaseModel", "User", "Amenity",
                      "Place", "Review", "State", "City"]
 
+    def do_EOF(self, arg):
+        """
+        EOF (Ctrl+D) signal to exit the program.
+        """
+        return True
+
     def do_quit(self, arg):
         """Quit command to exit the program.
         """
         return True
-
-    def do_EOF(self, arg):
-        """Quit command to exit the program.
-        """
-        return True
-
-    def do_help(self, arg):
-        """
-        Documented commands (type help <topic>):
-        ========================================
-        EOF  help  quit
-
-        """
-        if arg == 'quit':
-            print("Quit command to exit the program\n")
-        else:
-            print("\nDocumented commands (type help <topic>):")
-            print("=" * 40)
-            print("EOF  help  quit\n")
 
     def do_create(self, arg):
         """
