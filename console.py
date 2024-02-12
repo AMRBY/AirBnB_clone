@@ -9,11 +9,15 @@ from models import storage
 
 
 class HBNBCommand(cmd.Cmd):
-    """HBNBCommand class to manage the CLI"""
+    """HBNBCommand class to manage the CLI
+    args:
+        prompt: "(hbnb) " display in loop
+    """
     prompt = "(hbnb) "
 
     def emptyline(self):
-        """do nothing when emptyline"""
+        """do nothing when emptyline
+        """
         pass
 
     def do_quit(self, args):
@@ -119,13 +123,12 @@ class HBNBCommand(cmd.Cmd):
                         print("** value missing **")
                     else:
                         x_key = args.split()[2]
-                        objs[key_id].__dict__[x_key] = args.split()[3]
+                        setattr(objs[key_id], x_key, args.split()[3])
                         storage.save()
 
                 except Exception as e:
                     print("** no instance found **")
                     pass
-
 
 
 if __name__ == '__main__':
