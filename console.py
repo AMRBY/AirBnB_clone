@@ -101,7 +101,7 @@ class HBNBCommand(cmd.Cmd):
     def quoted(self, args):
         """detect and delete quotes
         """
-        i = 0
+        i = 3
         string = args.split()[i]
         new_string = args.split()[i]
         if(string[0] == '"' and string[-1] == '"'):
@@ -115,6 +115,7 @@ class HBNBCommand(cmd.Cmd):
             elif(string[-1] == '"'):
             new_string = string[:-1]
         """
+        print(new_string)
         return new_string
 
     def do_update(self, args):
