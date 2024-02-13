@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
         """
         return True
 
-    def do_EOF(selfi, args):
+    def do_EOF(self, args):
         """exit the CLI
         """
         return True
