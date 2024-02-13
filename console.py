@@ -33,7 +33,7 @@ class HBNBCommand(cmd.Cmd):
         """
         return True
 
-    def do_EOF(selfi, args):
+    def do_EOF(self, args):
         """exit the CLI
         """
         return True
@@ -75,17 +75,18 @@ class HBNBCommand(cmd.Cmd):
         if (args == ""):
             print("** class name missing **")
         else:
-            if (args.split()[0] not in HBNBCommand.classes):
+            class_name, instance_id = args.split()
+            if class_name not in HBNBCommand.classes:
                 print("** class doesn't exist **")
             elif (len(args.split()) == 1):
                 print("** instance id missing **")
             else:
                 objs = storage.all()
-                key_id = args.split()[0] + "." + args.split()[1]
+                key_id = class_name + "." + instance_id
                 try:
                     del(objs[key_id])
-                    objs.save()
-                except Exception:
+                    storage.save()
+                except KeyError:
                     print("** no instance found **")
                     pass
 
@@ -153,6 +154,31 @@ class HBNBCommand(cmd.Cmd):
                 except Exception as e:
                     print("** no instance found **")
                     pass
+                
+    def do_create_user(self, args):
+        """Create a new User instance"""
+        obj = User()
+        attributes = self.parse_attributes(args)
+        for key, value in attributes.items():
+            setattr(obj, key, value)
+        obj.save()
+        print(obj.id)
+
+    def do_show_user(self, args):
+        """Show details of a User instance"""
+        self.show_instance(User, args)
+
+    def do_destroy_user(self, args):
+        """Destroy a User instance"""
+        self.destroy_instance(User, args)
+
+    def do_update_user(self, args):
+        """Update attributes of a User instance"""
+        self.update_instance(User, args)
+
+    def do_all_users(self, args):
+        """Show all User instances"""
+        self.show_all_instances(User)
 
 
 if __name__ == '__main__':
