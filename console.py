@@ -127,47 +127,33 @@ class HBNBCommand(cmd.Cmd):
         return new_string
 
     def do_update(self, args):
-        """Update an object from a class."""
-        args_list = args.split()
-
-        if len(args_list) < 1:
+        """update an object from a class
+        """
+        if (args == ""):
             print("** class name missing **")
-            return
+        else:
+            if (args.split()[0] not in HBNBCommand.classes):
+                print("** class doesn't exist **")
+            elif (len(args.split()) == 1):
+                print("** instance id missing **")
+            else:
+                objs = storage.all()
+                key_id = args.split()[0] + "." + args.split()[1]
+                try:
+                    objs[key_id]
+                    if (len(args.split()) == 2):
+                        print("** attribute name missing **")
+                    elif (len(args.split()) == 3):
+                        print("** value missing **")
+                    else:
+                        x_key = args.split()[2]
+                        x_value = HBNBCommand.quoted(self, args)
+                        setattr(objs[key_id], x_key, x_value)
+                        storage.save()
 
-    
-        class_name = args_list[0]
-        if class_name not in HBNBCommand.classes:
-            print("** class doesn't exist **")
-            return
-
-        
-        if len(args_list) < 2:
-            print("** instance id missing **")
-            return
-
-        
-        instance_id = args_list[1]
-        objs = storage.all()
-        key_id = f"{class_name}.{instance_id}"
-        if key_id not in objs:
-            print("** no instance found **")
-            return
-
-        
-        if len(args_list) < 4:
-            if len(args_list) == 2:
-                print("** attribute name missing **")
-            elif len(args_list) == 3:
-                print("** value missing **")
-            return
-
-        
-        attribute_name = args_list[2]
-        attribute_value = " ".join(args_list[3:])
-
-        
-        setattr(objs[key_id], attribute_name, attribute_value)
-        storage.save()
+                except Exception as e:
+                    print("** no instance found **")
+                    pass
 
 
 if __name__ == '__main__':
