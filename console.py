@@ -134,18 +134,18 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
             return
 
-        # Check if the class doesn't exist
+    
         class_name = args_list[0]
         if class_name not in HBNBCommand.classes:
             print("** class doesn't exist **")
             return
 
-        # Check if the instance id is missing
+        
         if len(args_list) < 2:
             print("** instance id missing **")
             return
 
-        # Get instance id and check if it exists
+        
         instance_id = args_list[1]
         objs = storage.all()
         key_id = f"{class_name}.{instance_id}"
@@ -153,7 +153,7 @@ class HBNBCommand(cmd.Cmd):
             print("** no instance found **")
             return
 
-        # Check if attribute name and value are missing
+        
         if len(args_list) < 4:
             if len(args_list) == 2:
                 print("** attribute name missing **")
@@ -161,11 +161,11 @@ class HBNBCommand(cmd.Cmd):
                 print("** value missing **")
             return
 
-        # Extract attribute name and value
+        
         attribute_name = args_list[2]
         attribute_value = " ".join(args_list[3:])
 
-        # Update attribute and save changes
+        
         setattr(objs[key_id], attribute_name, attribute_value)
         storage.save()
 
