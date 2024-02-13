@@ -154,6 +154,31 @@ class HBNBCommand(cmd.Cmd):
                 except Exception as e:
                     print("** no instance found **")
                     pass
+                
+    def do_create_user(self, args):
+        """Create a new User instance"""
+        obj = User()
+        attributes = self.parse_attributes(args)
+        for key, value in attributes.items():
+            setattr(obj, key, value)
+        obj.save()
+        print(obj.id)
+
+    def do_show_user(self, args):
+        """Show details of a User instance"""
+        self.show_instance(User, args)
+
+    def do_destroy_user(self, args):
+        """Destroy a User instance"""
+        self.destroy_instance(User, args)
+
+    def do_update_user(self, args):
+        """Update attributes of a User instance"""
+        self.update_instance(User, args)
+
+    def do_all_users(self, args):
+        """Show all User instances"""
+        self.show_all_instances(User)
 
 
 if __name__ == '__main__':
