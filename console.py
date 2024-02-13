@@ -75,17 +75,18 @@ class HBNBCommand(cmd.Cmd):
         if (args == ""):
             print("** class name missing **")
         else:
-            if (args.split()[0] not in HBNBCommand.classes):
+            class_name, instance_id = args.split()
+            if class_name not in HBNBCommand.classes:
                 print("** class doesn't exist **")
             elif (len(args.split()) == 1):
                 print("** instance id missing **")
             else:
                 objs = storage.all()
-                key_id = args.split()[0] + "." + args.split()[1]
+                key_id = class_name + "." + instance_id
                 try:
                     del(objs[key_id])
-                    objs.save()
-                except Exception:
+                    storage.save()
+                except KeyError:
                     print("** no instance found **")
                     pass
 
@@ -126,33 +127,47 @@ class HBNBCommand(cmd.Cmd):
         return new_string
 
     def do_update(self, args):
-        """update an object from a class
-        """
-        if (args == ""):
-            print("** class name missing **")
-        else:
-            if (args.split()[0] not in HBNBCommand.classes):
-                print("** class doesn't exist **")
-            elif (len(args.split()) == 1):
-                print("** instance id missing **")
-            else:
-                objs = storage.all()
-                key_id = args.split()[0] + "." + args.split()[1]
-                try:
-                    objs[key_id]
-                    if (len(args.split()) == 2):
-                        print("** attribute name missing **")
-                    elif (len(args.split()) == 3):
-                        print("** value missing **")
-                    else:
-                        x_key = args.split()[2]
-                        x_value = HBNBCommand.quoted(self, args)
-                        setattr(objs[key_id], x_key, x_value)
-                        storage.save()
+        """Update an object from a class."""
+        args_list = args.split()
 
-                except Exception as e:
-                    print("** no instance found **")
-                    pass
+        if len(args_list) < 1:
+            print("** class name missing **")
+            return
+
+        # Check if the class doesn't exist
+        class_name = args_list[0]
+        if class_name not in HBNBCommand.classes:
+            print("** class doesn't exist **")
+            return
+
+        # Check if the instance id is missing
+        if len(args_list) < 2:
+            print("** instance id missing **")
+            return
+
+        # Get instance id and check if it exists
+        instance_id = args_list[1]
+        objs = storage.all()
+        key_id = f"{class_name}.{instance_id}"
+        if key_id not in objs:
+            print("** no instance found **")
+            return
+
+        # Check if attribute name and value are missing
+        if len(args_list) < 4:
+            if len(args_list) == 2:
+                print("** attribute name missing **")
+            elif len(args_list) == 3:
+                print("** value missing **")
+            return
+
+        # Extract attribute name and value
+        attribute_name = args_list[2]
+        attribute_value = " ".join(args_list[3:])
+
+        # Update attribute and save changes
+        setattr(objs[key_id], attribute_name, attribute_value)
+        storage.save()
 
 
 if __name__ == '__main__':
