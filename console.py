@@ -2,10 +2,16 @@
 """
 Command Line Interpreter
 """
-from models.engine.file_storage import FileStorage
+
 import cmd
-from models.base_model import BaseModel
 from models import storage
+from models.base_model import BaseModel
+from models.user import User
+from models.amenity import Amenity
+from models.city import City
+from models.place import Place
+from models.review import Review
+from models.state import State
 
 
 class HBNBCommand(cmd.Cmd):
@@ -14,6 +20,8 @@ class HBNBCommand(cmd.Cmd):
         prompt: "(hbnb) " display in loop
     """
     prompt = "(hbnb) "
+    classes = ["BaseModel", "User", "Amenity",
+               "Place", "Review", "State", "City"]
 
     def emptyline(self):
         """do nothing when emptyline
@@ -35,10 +43,10 @@ class HBNBCommand(cmd.Cmd):
         """
         if (args == ""):
             print("** class name missing **")
-        elif (args != "BaseModel"):
+        elif (args.split()[0] not in HBNBCommand.classes):
             print("** class doesn't exist **")
         else:
-            obj = BaseModel()
+            obj = eval(args.split()[0]+"()")
             obj.save()
             print(obj.id)
 
@@ -48,13 +56,13 @@ class HBNBCommand(cmd.Cmd):
         if (args == ""):
             print("** class name missing **")
         else:
-            if (args.split()[0] != "BaseModel"):
+            if (args.split()[0] not in HBNBCommand.classes):
                 print("** class doesn't exist **")
             elif (len(args.split()) == 1):
                 print("** instance id missing **")
             else:
                 objs = storage.all()
-                key_id = "BaseModel." + args.split()[1]
+                key_id = args.split()[0] + "." + args.split()[1]
                 try:
                     print(objs[key_id])
                 except Exception:
@@ -67,13 +75,13 @@ class HBNBCommand(cmd.Cmd):
         if (args == ""):
             print("** class name missing **")
         else:
-            if (args.split()[0] != "BaseModel"):
+            if (args.split()[0] not in HBNBCommand.classes):
                 print("** class doesn't exist **")
             elif (len(args.split()) == 1):
                 print("** instance id missing **")
             else:
                 objs = storage.all()
-                key_id = "BaseModel." + args.split()[1]
+                key_id = args.split()[0] + "." + args.split()[1]
                 try:
                     del(objs[key_id])
                     objs.save()
@@ -81,26 +89,41 @@ class HBNBCommand(cmd.Cmd):
                     print("** no instance found **")
                     pass
 
-    def do_all(self, arg):
-        'Show all instances based on class name.'
-        my_arg = arg.split(" ")
-        if not arg:
-            my_list = []
-            my_objects = FileStorage.all(self)
-            for key, values in my_objects.items():
-                my_list.append(str(values))
-            print(my_list)
-        elif my_arg[0] not in my_class:
+    def do_all(self, args):
+        """display all objects based on class
+        """
+        lista = []
+        objs = storage.all()
+        if (args == ""):
+            for v in objs.values():
+                lista.append(str(v))
+            print(lista[:])
+        elif (args.split()[0] not in HBNBCommand.classes):
             print("** class doesn't exist **")
         else:
-            my_list = []
-            my_objects = FileStorage.all(self)
-            for key, values in my_objects.items():
-                my_key = key.split(".")
-                if my_key[0] == my_arg[0]:
-                    my_list.append(str(values))
-            print(my_list)
+            for k, v in objs.items():
+                if (k.split('.')[0] == args.split()[0]):
+                    lista.append(str(v))
+            print(lista[:])
 
+    def quoted(self, args):
+        """detect and delete quotes
+        """
+        i = 3
+        string = args.split()[i]
+        new_string = args.split()[i]
+        if(string[0] == '"' and string[-1] == '"'):
+            new_string = string[1:-1]
+        elif(string[0] == '"'):
+            while(string[-1] != '"'):
+                string = string + " " + args.split()[i + 1]
+                i = i + 1
+            new_string = string[1:-1]
+        """
+            elif(string[-1] == '"'):
+            new_string = string[:-1]
+        """
+        return new_string
 
     def do_update(self, args):
         """update an object from a class
@@ -108,13 +131,13 @@ class HBNBCommand(cmd.Cmd):
         if (args == ""):
             print("** class name missing **")
         else:
-            if (args.split()[0] != "BaseModel"):
+            if (args.split()[0] not in HBNBCommand.classes):
                 print("** class doesn't exist **")
             elif (len(args.split()) == 1):
                 print("** instance id missing **")
             else:
                 objs = storage.all()
-                key_id = "BaseModel." + args.split()[1]
+                key_id = args.split()[0] + "." + args.split()[1]
                 try:
                     objs[key_id]
                     if (len(args.split()) == 2):
@@ -123,7 +146,8 @@ class HBNBCommand(cmd.Cmd):
                         print("** value missing **")
                     else:
                         x_key = args.split()[2]
-                        setattr(objs[key_id], x_key, args.split()[3])
+                        x_value = HBNBCommand.quoted(self, args)
+                        setattr(objs[key_id], x_key, x_value)
                         storage.save()
 
                 except Exception as e:
