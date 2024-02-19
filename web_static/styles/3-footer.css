@@ -1,0 +1,10 @@
+footer {
+	background-color: #FFFFFF;
+	height:60px;
+	width:100%;
+	border-top: solid;
+	border-width: 1px;
+	border-color: #CCCCCC;
+	position: absolute;
+	bottom: 0;
+}
