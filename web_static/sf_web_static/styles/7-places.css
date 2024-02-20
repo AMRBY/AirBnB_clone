@@ -1,23 +1,23 @@
-.places {
-	display: block-level;
-	justify-content: center;
+.places{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
 }
-.places h1 {
-	align-self: flex-start;
-	position: top;
-	text-align: left;
-	font-size: 30px;
+.places h1{
+        font-size: 30px;
+        flex: none;
+        width: 100%;
 }
 .places article{
-	display: inline-block;
-	width: 390px;
-	padding: 20px;
-	margin: 20px;
-	border: solid #FF5A5F;
-	border-width: 1px; 
-	border-radius: 4px; 
+        position: relative;
+        width: 390px;
+        padding: 20px;
+        margin: 20px;
+        border: solid #FF5A5F;
+        border-width: 1px;
+        border-radius: 4px;
 }
-.place article h2 {
-	font-size: 30px;
-	text-align: center;
+.places h2 {
+        font-size: 30px;
+        text-align: center;
 }
